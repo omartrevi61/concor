@@ -46,7 +46,14 @@ class OficioResource extends Resource
                             ->required(),
                         Forms\Components\Select::make('destinatario_id')
                             ->required()
-                            ->relationship('destinatario', 'nombre'),
+                            ->relationship('destinatario', 'nombre')
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('nombre')
+                                ->label('Nombre del nuevo Destinatario')
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->maxLength(255),
+                            ]),
                         Forms\Components\DatePicker::make('fecha_recepcion')
                             ->label('Fecha de Recepción')
                             ->default(now())
@@ -54,12 +61,25 @@ class OficioResource extends Resource
                         
                         Forms\Components\Select::make('remitente_id')
                             ->required()
-                            ->relationship('remitente', 'nombre'),
+                            ->relationship('remitente', 'nombre')
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('nombre')
+                                ->label('Nombre del nuevo Remitente')
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->maxLength(255),
+                            ]),
                         Forms\Components\Select::make('departamento_id')
                             ->label('Departamento o Instancia Remitente')
                             ->required()
-                            ->relationship('departamento', 'nombre'),
-                        
+                            ->relationship('departamento', 'nombre')
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('nombre')
+                                ->label('Nombre del nuevo Departamento')
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->maxLength(255),
+                            ]),
                         
                         Forms\Components\MarkdownEditor::make('asunto')
                             ->required(),
